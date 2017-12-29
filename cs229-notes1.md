@@ -90,12 +90,12 @@ $ \theta_j := \theta_j - \alpha \frac\partial {\partial\theta_J}J(\theta)$
 （上面的这个更新要同时对应从 $0$ 到 $n$ 的所有j 值进行。）这里的 $\alpha$ 也称为学习速率。这个算法是很自然的，逐步重复朝向 $J$ 降低最快的方向移动。
 要实现这个算法，咱们需要解决等号右边的导数项。首先来解决只有一组训练样本 $(x, y)$ 的情况，这样就可以忽略掉等号右边对 $J$ 的求和项目了。公式就简化下面这样：
 
-$\begin{align}
+$\begin{aligned}
 \frac\partial {\partial\theta_J}J(\theta) & = \frac\partial {\partial\theta_J} \frac 12(h_\theta(x)-y)^2\\
 & = 2 \times\frac12(h_\theta(x)-y)\times \frac\partial {\partial\theta_J}  (h_\theta(x)-y) \\
 & = (h_\theta(x)-y)\times \frac\partial {\partial\theta_J} \times(\sum^n_{i=0} \theta_ix_i-y) \\
 & = (h_\theta(x)-y)\times x_j
-\end{align}$
+\end{aligned}$
 
 对单个训练样本，更新规则如下所示：
 
@@ -173,12 +173,12 @@ $ tr a A=a trA$
 接下来咱们就来在不进行证明的情况下提出一些矩阵导数（其中的一些直到本节末尾才用得上）。另外要注意等式（4）$A$ 必须是**非奇异方形矩阵（non-singular square matrices**），而 $|A|$ 表示的是矩阵 $A$ 的行列式。那么我们就有下面这些等量关系：
 
 $$
-\begin{align}
+\begin{aligned}
    \nabla_A tr AB & = B^T & \tag 1\\
    \nabla_{A^T} f(A) & = (\nabla_{A} f(A))^T\tag 2\\
    \nabla_A tr ABA^TC& = CAB+C^TAB^T &\tag 3\\
    \nabla_A|A| & = |A|(A^{-1})^T &\tag 4
-\end{align}
+\end{aligned}
 $$
 
 为了让咱们的矩阵运算记号更加具体，咱们就详细解释一下这些等式中的第一个。加入我们有俩一个确定的矩阵 $B ∈ R^{n\times m}$（注意顺序，是$m\times n$，这里的意思也就是 $B$ 的元素都是实数，$B$ 的形状是 $n\times m$ 的一个矩阵），那么接下来就可以定义一个函数$ f: R^{m\times n} → R$ ，对应这里的就是 $f(A) = trAB$。这里要注意，这个矩阵是有意义的，因为如果 $A ∈ R^{m\times n} $，那么 $AB$ 就是一个方阵，是方阵就可以应用 trace 求迹运算；因此，实际上 f 映射的是从 $R^{m\times n} $ 到实数域 $R$。这样接下来就可以使用矩阵导数来找到 $\nabla_Af(A)$ ，这个导函数本身也是一个 $m \times n $的矩阵。上面的等式(1) 表明了这个导数矩阵的第 $(i,j)$个元素等同于 $B^T$ （$B$的转置）的第 $(i,j)$ 个元素，或者更直接表示成 $B_{ji}$。
@@ -213,7 +213,7 @@ y^{(m)}\\
 
 
 $$
-\begin{align}
+\begin{aligned}
 X\theta - \vec{y}  &=
 \begin{bmatrix}
 (x^{(1)})^T\theta \\
@@ -231,7 +231,7 @@ h_\theta (x^{1}) -y^{(1)}\\
 \vdots \\
 h_\theta (x^{m})-y^{(m)}\\
 \end{bmatrix}\\
-\end{align}
+\end{aligned}
 $$
 
 对于向量 $\vec{z}$ ，则有 $z^T z = z^2$ ，因此利用这个性质，可以推出:
@@ -239,9 +239,9 @@ $$
 
 
 $$
-\begin{align}
+\begin{aligned}
 \frac12(X\theta - \vec{y})^T (X\theta - \vec{y}) &=\frac12 \sum^m_{i=1}(h_\theta (x^{(i)})-y^{(i)})^2
-\end{align}
+\end{aligned}
 $$
 
 最后，要让 $J$ 的值最小，就要找到导数为 $0$ 的点。结合等式（2）和等式（3），就能得到下面这个等式（5）：
@@ -252,14 +252,14 @@ $ \nabla_{A^T} trABA^TC =B^TA^TC^T+BA^TC   \tag 5$
 
 
 $$
-\begin{align}
+\begin{aligned}
 \nabla_\theta J(\theta) &= \nabla_\theta \frac12 (X\theta - \vec{y})^T (X\theta - \vec{y}) \\
 &= \frac 12 \nabla_\theta (\theta ^TX^TX\theta -\theta^T X^T \vec{y} - \vec{y} ^TX\theta +\vec{y}^T \vec{y})\\
 &= \frac 12 \nabla_\theta tr(\theta ^TX^TX\theta -\theta^T X^T \vec{y} - \vec{y} ^TX\theta +\vec{y}^T \vec{y})\\
 &= \frac 12 \nabla_\theta (tr \theta ^TX^TX\theta - 2tr\vec{y} ^T X\theta)\\
 &= \frac 12 (X^TX\theta+X^TX\theta-2X^T\vec{y}) \\
 &= X^TX\theta-X^T\vec{y}\\
-\end{align}
+\end{aligned}
 $$
 
 
@@ -290,19 +290,19 @@ $ p(y ^{(i)} |x^{(i)}; \theta)= \frac1{\sqrt{2\pi\sigma}} exp (- \frac {(y^{(i)}
 给定一个 $X$ 为设计矩阵（design matrix），包含了全部$x^{(i)}$，然后再给定 $\theta$，那么 $y^{(i)}$ 的分布是什么？数据的概率以$p (\vec{y}|X;\theta )$ 的形式给出。在$\theta$取某个固定值的情况下，这个等式通常可以看做是一个 $\vec{y}$ 的函数（也可以看成是 $X$ 的函数）。当我们要把它当做 $\theta$ 的函数的时候，就称它为 **似然函数（likelihood function
 
 $$
-\begin{align}
+\begin{aligned}
 L(\theta) &=L(\theta;X,\vec{y})\\
 &=p(\vec{y}|X;\theta)\\
-\end{align}
+\end{aligned}
 $$
 
 结合之前对 $\epsilon^{(i)}$ 的独立性假设 (这里对$y^{(i)}$ 以及给定的 $x^{(i)}$ 也都做同样假设)，就可以把上面这个等式改写成下面的形式：
 
 $$
-\begin{align}
+\begin{aligned}
 L(\theta) &=\prod ^m _{i=1}p(\vec{y}|X;\theta)\\
 &=\prod ^m _{i=1} \frac 1{\sqrt {2\pi \sigma }} exp(- \frac{(y^{(i)}-\theta^T x^{(i)})^2}{2\sigma^2})\\
-\end{align}
+\end{aligned}
 $$
 
 
@@ -311,13 +311,13 @@ $$
 除了找到 $L(\theta)$ 最大值，我们还以对任何严格递增的 $L(\theta)$ 的函数求最大值。如果我们不直接使用 $L(\theta)$，而是使用对数函数，来找对数函数 $l(\theta)$ 的最大值，那这样对于求导来说就简单了一些：
 
 $$
-\begin{align}
+\begin{aligned}
 l(\theta) &=\log L(\theta)\\
 &=\log \prod ^m _{i=1} \frac 1{\sqrt {2\pi \sigma }} exp(- \frac{(y^{(i)}-\theta^T x^{(i)})^2}{2\sigma^2})\\
 &= \sum ^m _{i=1} \frac 1{\sqrt {2\pi \sigma }} exp(- \frac{(y^{(i)}-\theta^T x^{(i)})^2}{2\sigma^2})\\
 &= m \times \log \frac 1{\sqrt {2\pi \sigma}}- \frac1{\sigma^2}\times \frac12 \sum^m_{i=1} (y^{(i)}-\theta^Tx^{(i)})^2
 
-\end{align}
+\end{aligned}
 $$
 
 因此，对 l(\theta) 取得最大值也就意味着下面这个子式取到最小值：
@@ -397,12 +397,12 @@ $ \theta^T x =\theta_0 +\sum^n_{j=1}\theta_jx_j$
 
 
 $$
-\begin{align}
+\begin{aligned}
 g′(z) & = \frac d{dz} \frac1{1+e^{-z}}\\
 &= \frac 1{(1+e^{-z})^2} \times (e^{-z}))\\
 &= \frac 1{(1+e^{-z})^2} \times (1- \frac1{(1+e^{-z})})\\
 &= g(z)(1-g(z))
-\end{align}
+\end{aligned}
 $$
 
 
@@ -412,10 +412,10 @@ $$
 
 
 $$
-\begin{align}
+\begin{aligned}
 P(y=1|x;\theta)=h_{\theta}(x)\\
 P(y=0|x;\theta)=1- h_{\theta}(x)
-\end{align}
+\end{aligned}
 $$
 
 
@@ -426,20 +426,20 @@ $ p(y|x;\theta)=(h_\theta (x))^y(1- h_\theta (x))^{1-y}$
 假设 m 个训练样本都是各自独立生成的，那么就可以按如下的方式来写参数的似然函数：
 
 $$
-\begin{align}
+\begin{aligned}
 L(\theta) &= p(\vec{y}| X; \theta)\\
 &= \prod^m_{i=1}  p(y^{(i)}| x^{(i)}; \theta)\\
 &= \prod^m_{i=1} (h_\theta (x^{(i)}))^{y^{(i)}}(1-h_\theta (x^{(i)}))^{1-y^{(i)}} \\
-\end{align}
+\end{aligned}
 $$
 
 然后还是跟之前一样，取个对数就更容易计算最大值：
 
 $$
-\begin{align}
+\begin{aligned}
 l(\theta) &=\log L(\theta) \\
 &= \sum^m_{i=1} y^{(i)} \log h(x^{(i)})+(1-y^{(i)})\log (1-h(x^{(i)}))
-\end{align}
+\end{aligned}
 $$
 
 
@@ -449,12 +449,12 @@ $$
 
 
 $$
-\begin{align}
+\begin{aligned}
 \frac {\partial}{\partial \theta_j} l(\theta) &=(y\times \frac 1 {g(\theta ^T x)}  - (1-y)\times \frac 1 {1- g(\theta ^T x)}   )\frac {\partial}{\partial \theta_j}g(\theta ^Tx) \\
 &= (y\times \frac 1 {g(\theta ^T x)}  - (1-y)\times \frac 1 {1- g(\theta ^T x)}   )  g(\theta^Tx)(1-g(\theta^Tx)) \frac {\partial}{\partial \theta_j}\theta ^Tx \\
 &= (y(1-g(\theta^Tx) ) -(1-y) g(\theta^Tx)) x_j\\
 &= (y-h_\theta(x))x_j
-\end{align}
+\end{aligned}
 $$
 上面的式子里，我们用到了对函数求导的定理 $ g' (z)= g(z)(1-g(z))$  。然后就得到了随机梯度上升规则：
 
@@ -543,40 +543,40 @@ $ p(y;\eta) =b(y)exp(\eta^TT(y)-a(\eta)) \tag 6$
 我们这样来写伯努利分布：
 
 
-$\begin{align}
+$\begin{aligned}
 p(y;\phi) & = \phi ^y(1-\phi)^{1-y}\\
 & = exp(y \log \phi + (1-y)\log(1-\phi))\\
 & = exp( (log (\frac{\phi}{1-\phi}))y+\log (1-\phi) )\\
-\end{align}$
+\end{aligned}$
 
 因此，自然参数（natural parameter）就给出了，即 $\eta = log (\frac  \phi {1 − \phi})$。 很有趣的是，如果我们翻转这个定义，用$\eta$ 来解 $\phi$ 就会得到 $\phi = 1/ (1 + e−\eta )$。这正好就是之前我们刚刚见到过的 S型函数（sigmoid function）！ 在我们把逻辑回归作为一种广义线性模型（GLM）的时候还会遇到这个情况。
 
-$\begin{align}
+$\begin{aligned}
 T(y) &= y \\
 a( \eta) & = - \log (1- \phi) \\
 & = \log {(1+ e^ \eta)}\\
 b(y)&=1
-\end{align}$
+\end{aligned}$
 
 
 上面这组式子就表明了伯努利分布可以写成等式(6)的形式，使用一组合适的$T$， $a$ 和 $b$。
 接下来就看看高斯分布吧。还记得吧，在推导线性回归的时候，$\sigma%^2$ 的值对我们最终选择的 $\theta$ 和 $h_\theta(x)$ 都没有影响。所以我们可以给 $\sigma^2$ 取一个任意值。为了简化推导过程，就令$\sigma^2 = 1$。然后就有了下面的等式：
 
-$\begin{align}
+$\begin{aligned}
 p(y;\mu) &= \frac1{\sqrt{2\pi}} exp (- \frac 12 (y-\mu)^2) \\
 & =  \frac1{\sqrt{2\pi}} exp (- \frac 12 y^2) \times exp (\mu y -\frac 12 \mu^2) \\
-\end{align}$
+\end{aligned}$
 
 注：如果我们把 $\sigma^2$ 留作一个变量，高斯分布就也可以表达成指数分布的形式，其中 $\eta ∈ R^2$ 就是一个二维向量，同时依赖 $\mu$ 和 $\sigma$。然而，对于广义线性模型GLMs方面的用途， $\sigma^2$ 参数就也可以看成是对指数分布族的更泛化的定义： $p(y; \eta, \tau ) = b(a, \tau ) exp((\eta^T T (y) − a(\eta))/c(\tau))$。这里面的$\tau$ 叫做**分散度参数（dispersion parameter）**，对于高斯分布， $c(\tau) = \sigma^2$ ；不过上文中我们已经进行了简化，所以针对我们要考虑的各种案例，就不需要再进行更加泛化的定义了。
 这样，我们就可以看出来高斯分布是属于指数分布族的，可以写成下面这样：
 
-$\begin{align}
+$\begin{aligned}
 \eta & = \mu \\
 T(y) & = y \\
 a(\eta) & = \mu ^2 /2\\
 & = \eta ^2 /2\\
 b(y) & = (1/ \sqrt {2\pi })exp(-y^2/2)
-\end{align}$
+\end{aligned}$
 
 
 指数分布族里面还有很多其他的分布：例如多项式分布（multinomial），这个稍后我们会看到；泊松分布（Poisson），用于对计数类数据进行建模，后面再问题集里面也会看到；$\gamma$和指数分布（the gamma and the exponential），这个用于对连续的、非负的随机变量进行建模，例如时间间隔；$\beta$和狄利克雷分布（the beta and the Dirichlet），这个是用于概率的分布；还有很多啦。在下一节里面，我们就来讲一讲对于建模的一个更通用的“方案”，其中的$y$ (给定 $x$ 和 $\theta$) 可以是上面这些分布中的任意一种。
@@ -603,12 +603,12 @@ b(y) & = (1/ \sqrt {2\pi })exp(-y^2/2)
 我们这一节要讲的是普通最小二乘法实际上是广义线性模型中的一种特例，设想如下的背景设置：目标变量 $y$（在广义线性模型的术语也叫做响应变量response variable）是连续的，然后我们将给定 $x$ 的 $y$ 的分布以高斯分布 $N(\mu, \tau2)$ 来建模，其中 $\mu$ 可以是依赖 $x$ 的一个函数。这样，我们就让上面的指数分布族的$(\eta)$分布成为了一个高斯分布。在前面内容中我们提到过，在把高斯分布写成指数分布族的分布的时候，有$\mu = \eta$。所以就能得到下面的等式：
 
 
-$\begin{align}
+$\begin{aligned}
 h_\theta(x)& = E[y|x;\theta] \\
 & = \mu \\
 & = \eta \\
 & = \theta^Tx
-\end{align}$
+\end{aligned}$
 
 第一行的等式是基于假设(2)；第二个等式是基于定理当 $y|x; \theta ∼ N (\mu, \sigma ^2)$，则 $y$ 的期望就是 $\mu$ ；第三个等式是基于假设(1)，以及之前我们此前将高斯分布写成指数族分布的时候推导出来的性质 $\mu = \eta$；最后一个等式就是基于假设(3)。
 
@@ -617,12 +617,12 @@ h_\theta(x)& = E[y|x;\theta] \\
 
 接下来咱们再来看看逻辑回归。这里咱们还是看看二值化分类问题，也就是 $y ∈ {0, 1}$。给定了$y$ 是一个二选一的值，那么很自然就选择伯努利分布（Bernoulli distribution）来对给定 $x$ 的 $y$ 的分布进行建模了。在我们把伯努利分布写成一种指数族分布的时候，有 $\phi = 1/ (1 + e^{−\eta})$。另外还要注意的是，如果有 $y|x; \theta ∼ Bernoulli(\phi)$，那么 $E [y|x; \theta] = \phi$。所以就跟刚刚推导普通最小二乘法的过程类似，有以下等式：
 
-$\begin{align}
+$\begin{aligned}
 h_\theta(x)& = E[y|x;\theta] \\
 & = \phi \\
 & = 1/(1+ e^{-\eta}) \\
 & = 1/(1+ e^{-\theta^Tx})
-\end{align}$
+\end{aligned}$
 
 所以，上面的等式就给了给了假设函数的形式：$h\theta(x) = 1/ (1 + e−\theta^T x)$。如果你之前好奇咱们是怎么想出来逻辑回归的函数为$1/ (1 + e^{−z} )$，这个就是一种解答：一旦我们假设以 $x$ 为条件的 $y$ 的分布是伯努利分布，那么根据广义线性模型和指数分布族的定义，就会得出这个式子。
 
@@ -695,7 +695,7 @@ $$
 
 
 
-$$\begin{align}
+$$\begin{aligned}
 p(y;\phi) &= \phi_1^{1\{y=1\}} \phi_2^{1\{y=2\}} \dots \phi_k^{1\{y=k\}}   \\
 &= \phi_1^{1\{y=1\}} \phi_2^{1\{y=2\}} \dots \phi_k^ {1-\sum^{k-1}_{i=1}{1\{y=i\}}}  \\
 
@@ -711,12 +711,12 @@ p(y;\phi) &= \phi_1^{1\{y=1\}} \phi_2^{1\{y=2\}} \dots \phi_k^{1\{y=k\}}   \\
 )\\
 
 &= b(y) exp(\eta^TT(y)-a(\eta))\\
-\end{align}$$
+\end{aligned}$$
 
 
 其中：
 
-$$\begin{align}
+$$\begin{aligned}
 \eta &= \left[
     \begin{array}{cc|c}
       \log (\phi _1/\phi _k)\\
@@ -727,7 +727,7 @@ $$\begin{align}
 \right]\\
 a(\eta) &= -\log (\phi _k)\\
 b(y) &= 1\\
-\end{align}$$
+\end{aligned}$$
 
 这样咱们就把多项式方程作为一个指数族分布来写了出来。
 与 $i (for  : i = 1, ..., k)$对应的链接函数为：
@@ -738,11 +738,11 @@ $ \eta_i =\log \frac {\phi_i}{\phi_k}$
 
 
 
-$$\begin{align}
+$$\begin{aligned}
 e^{\eta_i} &= \frac{\phi_i}{\phi_k}\\
 \phi_k e^{\eta_i} &= \phi_i \tag 7\\
 \phi_k  \sum^k_{i=1} e^{\eta_i}&= \sum^k_{i=1}\phi_i= 1\\
-\end{align}$$
+\end{aligned}$$
 
 
 这就说明了$\phi_k = \frac 1 {\sum^k_{i=1} e^{\eta_i}}$，然后可以把这个关系代入回到等式(7)，这样就得到了响应函数：
@@ -753,11 +753,11 @@ $ \phi_i = \frac { e^{\eta_i} }{ \sum^k_{j=1} e^{\eta_j}}$
 上面这个函数从$\eta$ 映射到了$\phi$，称为 Softmax 函数。要完成我们的建模，还要用到前文提到的假设(3)，也就是 $\eta_i$ 是一个 $x$ 的线性函数。所以就有了 $\eta_= \theta_i^Tx (for:i = 1, ..., k − 1)$，其中的 $\theta_1, ..., \theta_{k−1} ∈ R^{n+1}$ 就是我们建模的参数。为了表述方便，我们这里还是定义$\theta_k = 0$，这样就有 $\eta_k = \theta_k^T x = 0$，跟前文提到的相符。因此，我们的模型假设了给定 $x$ 的 $y$ 的条件分布为：
 
 
-$$\begin{align}
+$$\begin{aligned}
 p(y=i|x;\theta) &=  \phi_i \\
 &= \frac{e^{\eta_i}}{\sum^k_{j=1}e^{\eta_j}}\\
 &=\frac{e^{\theta_i^Tx}}{\sum^k_{j=1}e^{\theta_j^Tx}}\tag 8\\
-\end{align}$$
+\end{aligned}$$
 
 
 
@@ -765,7 +765,7 @@ p(y=i|x;\theta) &=  \phi_i \\
 假设（hypothesis） $h$ 则如下所示:
 
 
-$$\begin{align}
+$$\begin{aligned}
 h_\theta (x) &= E[T(y)|x;\theta]\\
 &= E \left[
     \begin{array}{cc|c}
@@ -791,19 +791,19 @@ h_\theta (x) &= E[T(y)|x;\theta]\\
 	  \frac{exp(\theta_{k-1}^Tx)}{\sum^k_{j=1}exp(\theta_j^Tx)} \\
     \end{array}
 \right]\\
-\end{align}$$
+\end{aligned}$$
 
 
 
 也就是说，我们的假设函数会对每一个 $i = 1,...,k$ ，给出 $p (y = y|x; \theta)$ 概率的估计值。（虽然咱们在前面假设的这个 $h_\theta(x)$ 只有 $k-1$ 维，但很明显 $p (y = y|x; \theta)$ 可以通过用 $1$ 减去其他所有项目概率的和来得到，即$1− \sum^{k-1}_{i=1}\phi_i$。）
 
 最后，咱们再来讲一下参数拟合。和我们之前对普通最小二乘线性回归和逻辑回归的原始推导类似，如果咱们有一个有 m 个训练样本的训练集 $\{(x^{(i)}, y^{(i)}); i = 1, ..., m\}$，然后要研究这个模型的参数 \thetai ，我们可以先写出其似然函数的对数：
-$$\begin{align}
+$$\begin{aligned}
 
 l(\theta)& =\sum^m_{i=1} \log p(y^{(i)}|x^{(i)};\theta)\\
 &= \sum^m_{i=1} \prod ^k_{l=1}(\frac{e^{\theta_l^Tx^{(i)}}}{\sum^k_{j=1} e^{\theta_j^T x^{(i)}}})^{1(y^{(i)}=l)}
 
-\end{align}$$
+\end{aligned}$$
 
 
 
