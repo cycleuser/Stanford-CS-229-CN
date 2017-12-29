@@ -175,10 +175,10 @@ $ tr a A=a trA$
 
 $$
 \begin{aligned}
-   \nabla_A tr AB & = B^T & \tag 1\\
-   \nabla_{A^T} f(A) & = (\nabla_{A} f(A))^T\tag 2\\
-   \nabla_A tr ABA^TC& = CAB+C^TAB^T &\tag 3\\
-   \nabla_A|A| & = |A|(A^{-1})^T &\tag 4\\
+   \nabla_A tr AB & = B^T & \text{(1)}\\
+   \nabla_{A^T} f(A) & = (\nabla_{A} f(A))^T &\text{(2)}\\
+   \nabla_A tr ABA^TC& = CAB+C^TAB^T &\text{(3)}\\
+   \nabla_A|A| & = |A|(A^{-1})^T &\text{(4)}\\
 \end{aligned}
 $$
 
@@ -247,7 +247,7 @@ $$
 
 最后，要让 $J$ 的值最小，就要找到导数为 $0$ 的点。结合等式（2）和等式（3），就能得到下面这个等式（5）：
 
-$ \nabla_{A^T} trABA^TC =B^TA^TC^T+BA^TC   \tag 5$
+$ \nabla_{A^T} trABA^TC =B^TA^TC^T+BA^TC   \text{(5)}$
 
 因此就有：
 
@@ -311,15 +311,13 @@ $$
 现在，给定了$y^{(i)})$ 和 $x^{(i)})$之间关系的概率模型了，用什么方法来选择咱们对参数 $\theta$ 的最佳猜测呢？最大似然法（maximum likelihood）告诉我们要选择能让数据的似然函数尽可能大的 $\theta$。也就是说，咱们要找的 $\theta$ 能够让函数 $L(\theta)$ 取到最大值。
 除了找到 $L(\theta)$ 最大值，我们还以对任何严格递增的 $L(\theta)$ 的函数求最大值。如果我们不直接使用 $L(\theta)$，而是使用对数函数，来找对数函数 $l(\theta)$ 的最大值，那这样对于求导来说就简单了一些：
 
-$$
-\begin{aligned}
+$\begin{aligned}
 l(\theta) &=\log L(\theta)\\
 &=\log \prod ^m _{i=1} \frac 1{\sqrt {2\pi \sigma }} exp(- \frac{(y^{(i)}-\theta^T x^{(i)})^2}{2\sigma^2})\\
 &= \sum ^m _{i=1} \frac 1{\sqrt {2\pi \sigma }} exp(- \frac{(y^{(i)}-\theta^T x^{(i)})^2}{2\sigma^2})\\
 &= m \times \log \frac 1{\sqrt {2\pi \sigma}}- \frac1{\sigma^2}\times \frac12 \sum^m_{i=1} (y^{(i)}-\theta^Tx^{(i)})^2\\
-
 \end{aligned}
-$$
+$
 
 因此，对 l(\theta) 取得最大值也就意味着下面这个子式取到最小值：
 
@@ -368,7 +366,7 @@ $w^{(i)} = exp(− \frac{(x^{(i)}-x)^T(x^{(i)}-x)}{2\tau^2})$，
 
 
 
-### 第二部分 分类和逻辑回归（Classification and \logistic regression）
+### 第二部分 分类和逻辑回归（Classification and logistic regression）
 
 
 接下来咱们讲一下分类的问题。分类问题其实和回归问题很像，吃不过我们现在要来预测的 $y$ 的值只局限于少数的若干个离散值。眼下咱们首先关注的是二值化分类问题，也就是说咱们要判断的 y 只有两个取值，$0$ 或者 $1$。（咱们这里谈到的大部分内容也都可以扩展到多种类的情况。）例如，假如要建立一个垃圾邮件筛选器，那么就可以用 $x^{(i)}$ 表示一个邮件中的若干特征，然后如果这个邮件是垃圾邮件，$y$ 就设为$1$，否则 $y$ 为 $0$。$0$ 也可以被称为**消极类别（negative class）**，而 $1$ 就成为**积极类别（positive class**），有的情况下也分别表示成“-” 和 “+”。对于给定的一个 $x^{(i)}$，对应的$y^{(i)}$也称为训练样本的**标签（label）**。
@@ -534,7 +532,7 @@ $ H_{ij}= \frac{\partial^2 l(\theta)}{\partial \theta_i \partial \theta_j}$
 
 在学习 GLMs 之前，我们要先定义一下指数组分布（exponential family distributions）。如果一个分布能用下面的方式来写出来，我们就说这类分布属于指数族：
 
-$ p(y;\eta) =b(y)exp(\eta^TT(y)-a(\eta)) \tag 6$
+$ p(y;\eta) =b(y)exp(\eta^TT(y)-a(\eta)) \text{(6)}$
 
 上面的式子中，$\eta$ 叫做此分布的自然参数（natural parameter，也叫典范参数 canonical parameter） ； $T(y)$ 叫做充分统计量（sufficient statistic），我们目前用的这些分布中通常 $T (y) = y$；而 $a(\eta)$ 是一个对数分割函数（log partition function）。$e^{−a(\eta)}$ 这个量本质上扮演了归一化常数（normalization constant）的角色，也就是确保 $p(y; \eta)$ 的总和或者积分等于$1$。
 
@@ -639,7 +637,7 @@ h_\theta(x)& = E[y|x;\theta] \\
 要对一个可能有 $k$ 个不同输出值的多项式进行参数化，就可以用 $k$ 个参数 $\phi_1,...,\phi_ k$ 来对应各自输出值的概率。不过这么多参数可能太多了，形式上也太麻烦，他们也未必都是互相独立的（比如对于任意一个$\phi_ i$中的值来说，只要知道其他的 $k-1$ 个值，就能知道这最后一个了，因为总和等于$1$，也就是$\sum^k_{i=1} \phi_i = 1$）。
 所以咱们就去掉一个参数，只用 $k-1$ 个：$\phi_1,...,\phi_ {k-1}$  来对多项式进行参数化，其中$\phi_i = p (y = i; \phi)，p (y = k; \phi) = 1 −\sum ^{k−1}_{i=1}\phi_ i$。为了表述起来方便，我们还要设 $\phi_k = 1 − \sum_{i=1}^{k−1} \phi_i$，但一定要注意，这个并不是一个参数，而是完全由其他的 $k-1$ 个参数来确定的。要把一个多项式表达成为指数组分布，还要按照下面的方式定义一个 $T (y) ∈ R^{k−1}$:
 
-$$
+$
 T(1)=\left[
     \begin{array}{cc|c}
       1\\
@@ -686,7 +684,7 @@ T(k)=\left[
 	  0\\
     \end{array}
 \right]
-$$
+$
 
 这次和之前的样例都不一样了，就是不再有 $T(y) = y$；然后，$T(y)$ 现在是一个 $k – 1$ 维的向量，而不是一个实数了。向量 $T(y)$ 中的第 $i$ 个元素写成$(T(y))_i$ 。
 现在介绍一种非常有用的记号。指示函数（indicator function）$1\{\cdot  \}$，如果参数为真，则等于$1$；反之则等于$0$（$1{True} = 1, 1{False} = 0$）。例如1{2 = 3} = 0, 而1{3 = 5 − 2} = 1。所以我们可以把T (y) 和 y 的关系写成  (T(y))i = 1{y = i}。（往下继续阅读之前，一定要确保你理解了这里的表达式为真！）在此基础上，就有了E[(T(y))i] = P (y = i) = \phii。
@@ -741,7 +739,7 @@ $ \eta_i =\log \frac {\phi_i}{\phi_k}$
 
 $$\begin{aligned}
 e^{\eta_i} &= \frac{\phi_i}{\phi_k}\\
-\phi_k e^{\eta_i} &= \phi_i \tag 7\\
+\phi_k e^{\eta_i} &= \phi_i \text{(7)}\\
 \phi_k  \sum^k_{i=1} e^{\eta_i}&= \sum^k_{i=1}\phi_i= 1\\
 \end{aligned}$$
 
@@ -757,7 +755,7 @@ $ \phi_i = \frac { e^{\eta_i} }{ \sum^k_{j=1} e^{\eta_j}}$
 $$\begin{aligned}
 p(y=i|x;\theta) &=  \phi_i \\
 &= \frac{e^{\eta_i}}{\sum^k_{j=1}e^{\eta_j}}\\
-&=\frac{e^{\theta_i^Tx}}{\sum^k_{j=1}e^{\theta_j^Tx}}\tag 8\\
+&=\frac{e^{\theta_i^Tx}}{\sum^k_{j=1}e^{\theta_j^Tx}}\text{(8)}\\
 \end{aligned}$$
 
 
