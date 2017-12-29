@@ -472,8 +472,8 @@ $ \theta_j := \theta_j + \alpha (y^{(i)}-h_\theta (x^{(i)}))x_j^{(i)}$
 
 
 $$
-g(z)= \begin{cases} 1, & \text {if  z ≥ 0 } \\
-0, & \text{if $z < 0$} \end{cases}
+g(z)= \begin{cases} 1, & \text {if  z \geq 0 } \\
+0, & \text{if  z < 0 } \end{cases}
 $$
 
 如果我们还像之前一样令 $h_\theta(x) = g(\theta^T x)$，但用刚刚上面的阈值函数作为 $g$ 的定义，然后如果我们用了下面的更新规则：
