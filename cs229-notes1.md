@@ -74,7 +74,7 @@ $ h(x) = \sum^n_{i=0}  \theta_i x_i = \theta^T x$
 
 现在，给定了一个训练集了，咱们怎么来挑选/学习参数 $\theta$ 呢？一个看上去比较合理的方法就是让 $h(x)$ 尽量逼近 $y$，至少对咱已有的训练样本能适用。用公式的方式来表示的话，就要定义一个函数，来衡量对于每个不同的 $\theta$ 值，$h(x_{(i)})$ 与对应的 $y_{(i)}$ 的距离。这样用如下的方式定义了一个 **成本函数 （cost function**）:
 
-$ J(\theta) = \frac12 \sum^m_{i=1}(H_\theta(x^{(i)})-y^{(i)})^2  $
+$ J(\theta) = \frac 12 \sum^m_{i=1}(H_\theta(x^{(i)})-y^{(i)})^2  $
 
 如果之前你接触过线性回归，你会发现这个函数和常规最小二乘法拟合模型中的最小二乘法成本函数非常相似。不管之前接触过没有，咱们都接着往下进行，以后就会发现这是一个更广泛的算法家族中的一个特例。
 
@@ -83,7 +83,7 @@ $ J(\theta) = \frac12 \sum^m_{i=1}(H_\theta(x^{(i)})-y^{(i)})^2  $
 
 我们希望选择一个能让 $J(\theta)$ 最小的 $\theta$ 值。怎么做呢，咱们先用一个搜索的算法，从某一个对 $\theta$ 的“初始猜测值”，然后对 $\theta$ 值不断进行调整，来让 $J(\theta)$ 逐渐变小，最好是直到我们能够达到一个使 $J(\theta)$ 最小的 $\theta$。具体来说，咱们可以考虑使用梯度下降法（gradient descent algorithm），这个方法就是从某一个 $\theta$ 的初始值开始，然后逐渐重复更新：
 
-$ \theta_j := \theta_j - \alpha \frac\partial {\partial\theta_J}J(\theta)$
+$ \theta_j := \theta_j - \alpha \frac \partial {\partial\theta_J}J(\theta)$
 
 
 > 注：本文中 $:= $ 表示的是计算机程序中的一种赋值操作，是把等号右边的计算结果赋值给左边的变量，$a := b$ 就表示用 $b$ 的值覆盖 $a$ 原有的 值。要注意区分，如果写的是 $a = b$ 则表示的是判断二者相等的关系。（译者注：在 Python 中，单个等号 $=$ 就是赋值，两个等号 $==$  表示相等关系的判断。
@@ -92,9 +92,9 @@ $ \theta_j := \theta_j - \alpha \frac\partial {\partial\theta_J}J(\theta)$
 要实现这个算法，咱们需要解决等号右边的导数项。首先来解决只有一组训练样本 $(x, y)$ 的情况，这样就可以忽略掉等号右边对 $J$ 的求和项目了。公式就简化下面这样：
 
 $\begin{aligned}
-\frac\partial {\partial\theta_J}J(\theta) & = \frac\partial {\partial\theta_J} \frac 12(h_\theta(x)-y)^2\\
-& = 2 \times\frac12(h_\theta(x)-y)\times \frac\partial {\partial\theta_J}  (h_\theta(x)-y) \\
-& = (h_\theta(x)-y)\times \frac\partial {\partial\theta_J} \times(\sum^n_{i=0} \theta_ix_i-y) \\
+\frac \partial {\partial\theta_J}J(\theta) & = \frac \partial {\partial\theta_J} \frac  12(h_\theta(x)-y)^2\\
+& = 2 \times\frac 12(h_\theta(x)-y)\times \frac \partial {\partial\theta_J}  (h_\theta(x)-y) \\
+& = (h_\theta(x)-y)\times \frac \partial {\partial\theta_J} \times(\sum^n_{i=0} \theta_ix_i-y) \\
 & = (h_\theta(x)-y)\times x_j
 \end{aligned}$
 
@@ -112,7 +112,7 @@ $ \theta_j := \theta_j + \alpha \sum^m_{i=1}(y^{(i)}-h_\theta (x^{(i)}))x_j^{(i)
 }
 
 
-读者很容易能证明，在上面这个更新规则中求和项的值就是$\frac{\partial J(\theta)}{\partial \theta_j}$ (这是因为对 $J$ 的原始定义)。所以这个更新规则实际上就是对原始的成本函数 $J $进行简单的梯度下降。这一方法在每一个步长内检查所有整个训练集中的所有样本，也叫做**批量梯度下降法（batch gradient descent**）。这里要注意，因为梯度下降法容易被局部最小值影响，而我们要解决的这个线性回归的优化问题只能有一个全局的而不是局部的最优解；因此，梯度下降法应该总是收敛到全局最小值（假设学习速率 $\alpha$ 不设置的过大）。$J$ 是一个凸的二次函数。下面是一个样例，其中对一个二次函数使用了梯度下降法来找到最小值。
+读者很容易能证明，在上面这个更新规则中求和项的值就是$\frac {\partial J(\theta)}{\partial \theta_j}$ (这是因为对 $J$ 的原始定义)。所以这个更新规则实际上就是对原始的成本函数 $J $进行简单的梯度下降。这一方法在每一个步长内检查所有整个训练集中的所有样本，也叫做**批量梯度下降法（batch gradient descent**）。这里要注意，因为梯度下降法容易被局部最小值影响，而我们要解决的这个线性回归的优化问题只能有一个全局的而不是局部的最优解；因此，梯度下降法应该总是收敛到全局最小值（假设学习速率 $\alpha$ 不设置的过大）。$J$ 是一个凸的二次函数。下面是一个样例，其中对一个二次函数使用了梯度下降法来找到最小值。
 
 ![](https://raw.githubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note1f3.png)
 
@@ -143,18 +143,18 @@ i 从 1 到 m:{
 
 假如有一个函数 $f: R_{m\times n} → R$ 从 $m\times n$ 大小的矩阵映射到实数域，那么就可以定义当矩阵为 $A$ 的时候有导函数 $f$ 如下所示：
 
-$ \nabla_A f(A)=\begin{bmatrix} \frac{\partial f}{\partial A_{11}} & \vdots  & \frac{\partial f}{\partial A_{1n}} \\ \vdots  & \vdots & \vdots  \\ \frac{\partial f}{\partial A_{m1}} & \vdots  & \frac{\partial f}{\partial A_{mn}} \\ \end{bmatrix}$
+$ \nabla_A f(A)=\begin{bmatrix} \frac {\partial f}{\partial A_{11}} & \vdots  & \frac {\partial f}{\partial A_{1n}} \\ \vdots  & \vdots & \vdots  \\ \frac {\partial f}{\partial A_{m1}} & \vdots  & \frac {\partial f}{\partial A_{mn}} \\ \end{bmatrix}$
 
-因此，这个梯度 $\nabla_A f(A)$本身也是一个 m*n 的矩阵，其中的第 (i,j) 个元素是 $\frac{\partial f}{\partial A_{ij}} $ 。
+因此，这个梯度 $\nabla_A f(A)$本身也是一个 m*n 的矩阵，其中的第 (i,j) 个元素是 $\frac {\partial f}{\partial A_{ij}} $ 。
 假如 $ A =\begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \\ \end{bmatrix} $ 是一个 $2\times 2$  矩阵，然后给定的函数 $f:R^{2\times 2} → R$ 为:
 
-$ f(A) = \frac32A_{11}+5A^2_{12}+A_{21}\times A_{22}$
+$ f(A) = \frac 32A_{11}+5A^2_{12}+A_{21}\times A_{22}$
 
 这里面的 $A_{ij}$ 表示的意思是矩阵 $A$ 的第 $(i,j)$ 个元素。
 
 然后就有了梯度：
 
-$ \nabla _A f(A) =\begin{bmatrix} \frac 32 & 10 \times A_{12} \\ A_{22} & A_{21} \\ \end{bmatrix} $
+$ \nabla _A f(A) =\begin{bmatrix} \frac  32 & 10 \times A_{12} \\ A_{22} & A_{21} \\ \end{bmatrix} $
 
 然后咱们还要引入 trace 求迹运算，简写为 $tr$。对于一个给定的 $n\times n$ 方形矩阵 $A$，它的迹定义为对角项和：
 
@@ -185,7 +185,7 @@ $$
 为了让咱们的矩阵运算记号更加具体，咱们就详细解释一下这些等式中的第一个。加入我们有俩一个确定的矩阵 $B ∈ R^{n\times m}$（注意顺序，是$m\times n$，这里的意思也就是 $B$ 的元素都是实数，$B$ 的形状是 $n\times m$ 的一个矩阵），那么接下来就可以定义一个函数$ f: R^{m\times n} → R$ ，对应这里的就是 $f(A) = trAB$。这里要注意，这个矩阵是有意义的，因为如果 $A ∈ R^{m\times n} $，那么 $AB$ 就是一个方阵，是方阵就可以应用 trace 求迹运算；因此，实际上 f 映射的是从 $R^{m\times n} $ 到实数域 $R$。这样接下来就可以使用矩阵导数来找到 $\nabla_Af(A)$ ，这个导函数本身也是一个 $m \times n $的矩阵。上面的等式(1) 表明了这个导数矩阵的第 $(i,j)$个元素等同于 $B^T$ （$B$的转置）的第 $(i,j)$ 个元素，或者更直接表示成 $B_{ji}$。
 上面等式(1-3) 都很简单，证明就都留给读者做练习了。等式(4)需要用逆矩阵的伴随矩阵来推导出。
 
->注：假如咱们定义一个矩阵 $A′$，它的第 $(i,j)$ 个元素是$ (−1)^{i+j}$ 与矩阵 $A $移除 第 $i$ 行 和 第 $j$ 列 之后的行列式的乘积，则可以证明有$A^{−1} = (A′)^T /|A|$。（你可以检查一下，比如在 $A$ 是一个 $2\times 2$ 矩阵的情况下看看 $A^{-1}$ 是什么样的，然后以此类推。如果你想看看对于这一类结果的证明，可以参考一本中级或者高级的线性代数教材，比如Charles Curtis, 1991, Linear Algebra, Springer。）这也就意味着 $A′ = |A|(A−1)^T $。此外，一个矩阵 A 的行列式也可以写成 $|A| = A_{ij}A′$ 。因为 $(A′)_{ij}$ 不依赖 $A_{ij}$ （通过定义也能看出来），这也就意味着$(\frac \partial {\partial A_{ij}})|A| = A′_{ij} $，综合起来也就得到上面的这个结果了。
+>注：假如咱们定义一个矩阵 $A′$，它的第 $(i,j)$ 个元素是$ (−1)^{i+j}$ 与矩阵 $A $移除 第 $i$ 行 和 第 $j$ 列 之后的行列式的乘积，则可以证明有$A^{−1} = (A′)^T /|A|$。（你可以检查一下，比如在 $A$ 是一个 $2\times 2$ 矩阵的情况下看看 $A^{-1}$ 是什么样的，然后以此类推。如果你想看看对于这一类结果的证明，可以参考一本中级或者高级的线性代数教材，比如Charles Curtis, 1991, Linear Algebra, Springer。）这也就意味着 $A′ = |A|(A−1)^T $。此外，一个矩阵 A 的行列式也可以写成 $|A| = A_{ij}A′$ 。因为 $(A′)_{ij}$ 不依赖 $A_{ij}$ （通过定义也能看出来），这也就意味着$(\frac  \partial {\partial A_{ij}})|A| = A′_{ij} $，综合起来也就得到上面的这个结果了。
 
 
 ##### 2.2 最小二乘法回顾（Least squares revisited）
@@ -241,7 +241,7 @@ $$
 
 $$
 \begin{aligned}
-\frac12(X\theta - \vec{y})^T (X\theta - \vec{y}) &=\frac12 \sum^m_{i=1}(h_\theta (x^{(i)})-y^{(i)})^2\\
+\frac 12(X\theta - \vec{y})^T (X\theta - \vec{y}) &=\frac 12 \sum^m_{i=1}(h_\theta (x^{(i)})-y^{(i)})^2\\
 \end{aligned}
 $$
 
@@ -254,11 +254,11 @@ $ \nabla_{A^T} trABA^TC =B^TA^TC^T+BA^TC   \text{(5)}$
 
 $$
 \begin{aligned}
-\nabla_\theta J(\theta) &= \nabla_\theta \frac12 (X\theta - \vec{y})^T (X\theta - \vec{y}) \\
-&= \frac 12 \nabla_\theta (\theta ^TX^TX\theta -\theta^T X^T \vec{y} - \vec{y} ^TX\theta +\vec{y}^T \vec{y})\\
-&= \frac 12 \nabla_\theta tr(\theta ^TX^TX\theta -\theta^T X^T \vec{y} - \vec{y} ^TX\theta +\vec{y}^T \vec{y})\\
-&= \frac 12 \nabla_\theta (tr \theta ^TX^TX\theta - 2tr\vec{y} ^T X\theta)\\
-&= \frac 12 (X^TX\theta+X^TX\theta-2X^T\vec{y}) \\
+\nabla_\theta J(\theta) &= \nabla_\theta \frac 12 (X\theta - \vec{y})^T (X\theta - \vec{y}) \\
+&= \frac  12 \nabla_\theta (\theta ^TX^TX\theta -\theta^T X^T \vec{y} - \vec{y} ^TX\theta +\vec{y}^T \vec{y})\\
+&= \frac  12 \nabla_\theta tr(\theta ^TX^TX\theta -\theta^T X^T \vec{y} - \vec{y} ^TX\theta +\vec{y}^T \vec{y})\\
+&= \frac  12 \nabla_\theta (tr \theta ^TX^TX\theta - 2tr\vec{y} ^T X\theta)\\
+&= \frac  12 (X^TX\theta+X^TX\theta-2X^T\vec{y}) \\
 &= X^TX\theta-X^T\vec{y}\\
 \end{aligned}
 $$
@@ -280,12 +280,12 @@ $ y^{(i)}=\theta^T x^{(i)}+ \epsilon ^{(i)}$
 上式中 $ \epsilon ^{(i)}$ 是误差项，用于存放由于建模所忽略的变量导致的效果 (比如可能某些特征对于房价的影响很明显，但我们做回归的时候忽略掉了)或者随机的噪音信息（random noise）。进一步假设 $ \epsilon ^{(i)}$   是独立同分布的 (IID ，independently and identically distributed) ，服从高斯分布（Gaussian distribution ，也叫正态分布 Normal distribution），其平均值为 $0$，方差（variance）为 $\sigma ^2$。这样就可以把这个假设写成 $ \epsilon ^{(i)} ∼ N (0, \sigma ^2)$ 。然后 $ \epsilon ^{(i)} $  的密度函数就是：
 
 
-$ p(\epsilon ^{(i)} )= \frac1{\sqrt{2\pi\sigma}} exp (- \frac {(\epsilon ^{(i)} )^2}{2\sigma^2})$
+$ p(\epsilon ^{(i)} )= \frac 1{\sqrt{2\pi\sigma}} exp (- \frac  {(\epsilon ^{(i)} )^2}{2\sigma^2})$
 
 
 这意味着存在下面的等量关系：
 
-$ p(y ^{(i)} |x^{(i)}; \theta)= \frac1{\sqrt{2\pi\sigma}} exp (- \frac {(y^{(i)} -\theta^T x ^{(i)} )^2}{2\sigma^2})$
+$ p(y ^{(i)} |x^{(i)}; \theta)= \frac 1{\sqrt{2\pi\sigma}} exp (- \frac  {(y^{(i)} -\theta^T x ^{(i)} )^2}{2\sigma^2})$
 
 这里的记号 $ p(y ^{(i)} |x^{(i)}; \theta)$ 表示的是这是一个对于给定 $x^{(i)}$ 的 $y^{(i)}$ 的分布，用$\theta$ 进行了参数化。 注意这里咱们不能用 $\theta (p(y ^{(i)} |x^{(i)},\theta))$来当做条件，因为 $\theta$ 并不是一个随机变量。这个 $y^{(i)}$  的分布还可以写成$y^{(i)} | x^{(i)}; \theta ∼ N (\theta ^T x^{(i)}, \sigma^2)$。
 给定一个 $X$ 为设计矩阵（design matrix），包含了全部$x^{(i)}$，然后再给定 $\theta$，那么 $y^{(i)}$ 的分布是什么？数据的概率以$p (\vec{y}|X;\theta )$ 的形式给出。在$\theta$取某个固定值的情况下，这个等式通常可以看做是一个 $\vec{y}$ 的函数（也可以看成是 $X$ 的函数）。当我们要把它当做 $\theta$ 的函数的时候，就称它为 **似然函数（likelihood function
@@ -302,7 +302,7 @@ $$
 $$
 \begin{aligned}
 L(\theta) &=\prod ^m _{i=1}p(\vec{y}|X;\theta)\\
-&=\prod ^m _{i=1} \frac 1{\sqrt {2\pi \sigma }} exp(- \frac{(y^{(i)}-\theta^T x^{(i)})^2}{2\sigma^2})\\
+&=\prod ^m _{i=1} \frac  1{\sqrt {2\pi \sigma }} exp(- \frac {(y^{(i)}-\theta^T x^{(i)})^2}{2\sigma^2})\\
 \end{aligned}
 $$
 
@@ -313,15 +313,15 @@ $$
 
 $\begin{aligned}
 l(\theta) &=\log L(\theta)\\
-&=\log \prod ^m _{i=1} \frac 1{\sqrt {2\pi \sigma }} exp(- \frac{(y^{(i)}-\theta^T x^{(i)})^2}{2\sigma^2})\\
-&= \sum ^m _{i=1} \frac 1{\sqrt {2\pi \sigma }} exp(- \frac{(y^{(i)}-\theta^T x^{(i)})^2}{2\sigma^2})\\
-&= m \times \log \frac 1{\sqrt {2\pi \sigma}}- \frac1{\sigma^2}\times \frac12 \sum^m_{i=1} (y^{(i)}-\theta^Tx^{(i)})^2\\
+&=\log \prod ^m _{i=1} \frac  1{\sqrt {2\pi \sigma }} exp(- \frac {(y^{(i)}-\theta^T x^{(i)})^2}{2\sigma^2})\\
+&= \sum ^m _{i=1} \frac  1{\sqrt {2\pi \sigma }} exp(- \frac {(y^{(i)}-\theta^T x^{(i)})^2}{2\sigma^2})\\
+&= m \times \log \frac  1{\sqrt {2\pi \sigma}}- \frac 1{\sigma^2}\times \frac 12 \sum^m_{i=1} (y^{(i)}-\theta^Tx^{(i)})^2\\
 \end{aligned}
 $
 
 因此，对 l(\theta) 取得最大值也就意味着下面这个子式取到最小值：
 
-$ \frac12 \sum^m _{i=1} (y^{(i)}-\theta^Tx^{(i)})^2$
+$ \frac 12 \sum^m _{i=1} (y^{(i)}-\theta^Tx^{(i)})^2$
 
 到这里我们能发现这个子式实际上就是 $J(\theta)$，也就是最原始的最小二乘成本函数（least-squares cost function）。总结一下也就是：在对数据进行概率假设的基础上，最小二乘回归得到的 $\theta$ 和最大似然法估计的 $\theta$ 是一致的。所以这是一系列的假设，其前提是认为最小二乘回归（least-squares regression）能够被判定为一种非常自然的方法，这种方法正好就进行了最大似然估计（maximum likelihood estimation）。（要注意，对于验证最小二乘法是否为一个良好并且合理的过程来说，这些概率假设并不是必须的，此外可能（也确实）有其他的自然假设能够用来评判最小二乘方法。）
 另外还要注意，在刚才的讨论中，我们最终对 $\theta$ 的选择并不依赖 $\sigma^2$，而且也确实在不知道 $\sigma^2$ 的情况下就已经找到了结果。稍后我们还要对这个情况加以利用，到时候我们会讨论指数族以及广义线性模型。
@@ -353,11 +353,11 @@ $ \frac12 \sum^m _{i=1} (y^{(i)}-\theta^Tx^{(i)})^2$
 上面式子中的 $w^{(i)}$ 是非负的权值。直观点说就是，如果对应某个$i$ 的权值 $w^{(i)}$ 特别大，那么在选择拟合参数 $\theta$ 的时候，就要尽量让这一点的 $(y^{(i)} − \theta^T x^{(i)} )^2$ 最小。而如果权值$w^{(i)}$  特别小，那么这一点对应的$(y^{(i)} − \theta^T x^{(i)} )^2$ 就基本在拟合过程中忽略掉了。
 对于权值的选取可以使用下面这个比较标准的公式：
 
-$w^{(i)} = exp(- \frac{(x^{(i)}-x)^2}{2\tau^2})$
+$w^{(i)} = exp(- \frac {(x^{(i)}-x)^2}{2\tau^2})$
 
 如果 $x$ 是有值的向量，那就要对上面的式子进行泛化，得到的是
-$w^{(i)} = exp(− \frac{(x^{(i)}-x)^T(x^{(i)}-x)}{2\tau^2})$，
-或者:$w^{(i)} = exp(− \frac{(x^{(i)}-x)^T\Sigma ^{-1}(x^{(i)}-x)}{2})$，这就看是选择用$\tau$ 还是 $\Sigma$。
+$w^{(i)} = exp(− \frac {(x^{(i)}-x)^T(x^{(i)}-x)}{2\tau^2})$，
+或者:$w^{(i)} = exp(− \frac {(x^{(i)}-x)^T\Sigma ^{-1}(x^{(i)}-x)}{2})$，这就看是选择用$\tau$ 还是 $\Sigma$。
 
 
 要注意的是，权值是依赖每个特定的点 x 的，而这些点正是我们要去进行预测评估的点。此外，如果 $|x^{(i)} − x|$ 非常小，那么权值 $w^{(i)} $就接近 1；反之如果 $|x^{(i)} − x|$ 非常大，那么权值 $w^{(i)} $就变小。所以可以看出， $\theta$ 的选择过程中，查询点 $x$ 附近的训练样本有更高得多的权值。（$\theta$is chosen giving a much higher “weight” to the (errors on) training examples close to the query point x.）（还要注意，当权值的方程的形式跟高斯分布的密度函数比较接近的时候，权值和高斯分布并没有什么直接联系，尤其是当权值不是随机值，且呈现正态分布或者其他形式分布的时候。）
@@ -377,11 +377,11 @@ $w^{(i)} = exp(− \frac{(x^{(i)}-x)^T(x^{(i)}-x)}{2\tau^2})$，
 我们当然也可以还按照之前的线性回归的算法来根据给定的 $x$ 来预测 $y$，只要忽略掉 $y$ 是一个散列值就可以了。然而，这样构建的例子很容易遇到性能问题，这个方法运行效率会非常低，效果很差。而且从直观上来看，$h_\theta(x)$ 的值如果大于$1$ 或者小于$0$ 就都没有意义了，因为咱们已经实现都确定了 $y ∈ \{0, 1\}$，就是说 $y$ 必然应当是 $0$ 和 $1$ 这两个值当中的一个。
 所以咱们就改变一下假设函数$h_\theta (x)$ 的形式，来解决这个问题。比如咱们可以选择下面这个函数：
 
-$ h_\theta(x) = g(\theta^T x) = \frac 1{1+e^{-\theta^Tx}}$
+$ h_\theta(x) = g(\theta^T x) = \frac  1{1+e^{-\theta^Tx}}$
 
 其中有：
 
-$ g(z)= \frac1 {1+e^{-z}}$
+$ g(z)= \frac 1 {1+e^{-z}}$
 
 这个函数叫做**逻辑函数 （\logistic function）** ，或者也叫**双弯曲S型函数（sigmoid function**）。下图是 $g(z)$ 的函数图像：
 
@@ -397,9 +397,9 @@ $ \theta^T x =\theta_0 +\sum^n_{j=1}\theta_jx_j$
 
 $$
 \begin{aligned}
-\dot{g}(z) & = \fracd{dz} \frac1{1+e^{-z}}\\
-& = \frac 1{(1+e^{-z})^2} \times (e^{-z}))\\
-& = \frac 1{(1+e^{-z})^2} \times (1- \frac1{(1+e^{-z})})\\
+\dot{g}(z) & = \frac d{dz} \times \frac 1{1+e^{-z}}\\
+& = \frac  1{(1+e^{-z})^2} \times (e^{-z}))\\
+& = \frac  1{(1+e^{-z})^2} \times (1- \frac 1{(1+e^{-z})})\\
 & = g(z)(1-g(z))\\
 \end{aligned}
 $$
@@ -449,8 +449,8 @@ $$
 
 $$
 \begin{aligned}
-\frac {\partial}{\partial \theta_j} l(\theta) &=(y\times \frac 1 {g(\theta ^T x)}  - (1-y)\times \frac 1 {1- g(\theta ^T x)}   )\frac {\partial}{\partial \theta_j}g(\theta ^Tx) \\
-&= (y\times \frac 1 {g(\theta ^T x)}  - (1-y)\times \frac 1 {1- g(\theta ^T x)}   )  g(\theta^Tx)(1-g(\theta^Tx)) \frac {\partial}{\partial \theta_j}\theta ^Tx \\
+\frac  {\partial}{\partial \theta_j} l(\theta) &=(y\times \frac  1 {g(\theta ^T x)}  - (1-y)\times \frac  1 {1- g(\theta ^T x)}   )\frac  {\partial}{\partial \theta_j}g(\theta ^Tx) \\
+&= (y\times \frac  1 {g(\theta ^T x)}  - (1-y)\times \frac  1 {1- g(\theta ^T x)}   )  g(\theta^Tx)(1-g(\theta^Tx)) \frac  {\partial}{\partial \theta_j}\theta ^Tx \\
 &= (y(1-g(\theta^Tx) ) -(1-y) g(\theta^Tx)) x_j\\
 &= (y-h_\theta(x))x_j
 \end{aligned}
@@ -491,7 +491,7 @@ $ \theta_j := \theta_j +\alpha(y^{(i)}-h_\theta (x^{(i)}))x_j^{(i)}$
 再回到用 S 型函数 $g(z)$ 来进行逻辑回归的情况，咱们来讲一个让 $l(\theta)$ 取最大值的另一个算法。
 开始之前，咱们先想一下求一个方程零点的牛顿法。假如我们有一个从实数到实数的函数 $f:R \to R$，然后要找到一个 $\theta$ ，来满足 $f(\theta)=0$，其中 $\theta∈R$ 是一个实数。牛顿法就是对 $\theta$ 进行如下的更新：
 
-$\theta := \theta - \frac{f(\theta)}{f'(\theta)}$
+$\theta := \theta - \frac {f(\theta)}{f'(\theta)}$
 
 这个方法可以通过一个很自然的解释，我们可以把它理解成用一个线性函数来对函数 $f$ 进行逼近，这条直线是 $f$ 的切线，而猜测值是 $\theta$，解的方法就是找到线性方程等于零的点，把这一个零点作为 $\theta$ 设置给下一次猜测，然后依次类推。
 
@@ -502,7 +502,7 @@ $\theta := \theta - \frac{f(\theta)}{f'(\theta)}$
 
 牛顿法的给出的解决思路是让 $f(\theta) = 0$ 。如果咱们要用它来让函数 $l$ 取得最大值能不能行呢？函数 $l$ 的最大值的点应该对应着是它的导数$l′(\theta)$ 等于零的点。所以通过令$f(\theta) = l′(\theta)$，咱们就可以同样用牛顿法来找到 $l$ 的最大值，然后得到下面的更新规则：
 
-$\theta := \theta - \frac{l'(\theta)}{l''(\theta)}$
+$\theta := \theta - \frac {l'(\theta)}{l''(\theta)}$
 
 
 (扩展一下，额外再思考一下: 如果咱们要用牛顿法来求一个函数的最小值而不是最大值，该怎么修改？)
@@ -513,7 +513,7 @@ $\theta := \theta - H^{-1}\nabla_\theta l(\theta)$
 
 上面这个式子中的 $\nabla_\theta l(\theta)$和之前的样例中的类似，是关于 $\theta_i$ 的 $l(\theta)$ 的偏导数向量；而 $H$ 是一个 $n\times n$ 矩阵 ,实际上如果包含截距项的话，应该是, $(n + 1)\times (n + 1)$，也叫做 Hessian, 其详细定义是：
 
-$ H_{ij}= \frac{\partial^2 l(\theta)}{\partial \theta_i \partial \theta_j}$
+$ H_{ij}= \frac {\partial^2 l(\theta)}{\partial \theta_i \partial \theta_j}$
 
 牛顿法通常都能比（批量）梯度下降法收敛得更快，而且达到最小值所需要的迭代次数也低很多。然而，牛顿法中的单次迭代往往要比梯度下降法的单步耗费更多的性能开销，因为要查找和转换一个  $n\times n$的 Hessian 矩阵；不过只要这个 $n$ 不是太大，牛顿法通常就还是更快一些。当用牛顿法来在逻辑回归中求似然函数$l(\theta)$ 的最大值的时候，得到这一结果的方法也叫做Fisher评分（Fisher scoring）。
 
@@ -545,10 +545,10 @@ $ p(y;\eta) =b(y)exp(\eta^TT(y)-a(\eta)) \text{(6)}$
 $\begin{aligned}
 p(y;\phi) & = \phi ^y(1-\phi)^{1-y}\\
 & = exp(y \log \phi + (1-y)\log(1-\phi))\\
-& = exp( (log (\frac{\phi}{1-\phi}))y+\log (1-\phi) )\\
+& = exp( (log (\frac {\phi}{1-\phi}))y+\log (1-\phi) )\\
 \end{aligned}$
 
-因此，自然参数（natural parameter）就给出了，即 $\eta = log (\frac  \phi {1 − \phi})$。 很有趣的是，如果我们翻转这个定义，用$\eta$ 来解 $\phi$ 就会得到 $\phi = 1/ (1 + e−\eta )$。这正好就是之前我们刚刚见到过的 S型函数（sigmoid function）！ 在我们把逻辑回归作为一种广义线性模型（GLM）的时候还会遇到这个情况。
+因此，自然参数（natural parameter）就给出了，即 $\eta = log (\frac   \phi {1 − \phi})$。 很有趣的是，如果我们翻转这个定义，用$\eta$ 来解 $\phi$ 就会得到 $\phi = 1/ (1 + e−\eta )$。这正好就是之前我们刚刚见到过的 S型函数（sigmoid function）！ 在我们把逻辑回归作为一种广义线性模型（GLM）的时候还会遇到这个情况。
 
 $\begin{aligned}
 T(y) &= y \\
@@ -562,8 +562,8 @@ b(y)&=1
 接下来就看看高斯分布吧。还记得吧，在推导线性回归的时候，$\sigma%^2$ 的值对我们最终选择的 $\theta$ 和 $h_\theta(x)$ 都没有影响。所以我们可以给 $\sigma^2$ 取一个任意值。为了简化推导过程，就令$\sigma^2 = 1$。然后就有了下面的等式：
 
 $\begin{aligned}
-p(y;\mu) &= \frac1{\sqrt{2\pi}} exp (- \frac 12 (y-\mu)^2) \\
-& =  \frac1{\sqrt{2\pi}} exp (- \frac 12 y^2) \times exp (\mu y -\frac 12 \mu^2) \\
+p(y;\mu) &= \frac 1{\sqrt{2\pi}} exp (- \frac  12 (y-\mu)^2) \\
+& =  \frac 1{\sqrt{2\pi}} exp (- \frac  12 y^2) \times exp (\mu y -\frac  12 \mu^2) \\
 \end{aligned}$
 
 注：如果我们把 $\sigma^2$ 留作一个变量，高斯分布就也可以表达成指数分布的形式，其中 $\eta ∈ R^2$ 就是一个二维向量，同时依赖 $\mu$ 和 $\sigma$。然而，对于广义线性模型GLMs方面的用途， $\sigma^2$ 参数就也可以看成是对指数分布族的更泛化的定义： $p(y; \eta, \tau ) = b(a, \tau ) exp((\eta^T T (y) − a(\eta))/c(\tau))$。这里面的$\tau$ 叫做**分散度参数（dispersion parameter）**，对于高斯分布， $c(\tau) = \sigma^2$ ；不过上文中我们已经进行了简化，所以针对我们要考虑的各种案例，就不需要再进行更加泛化的定义了。
@@ -734,22 +734,22 @@ b(y) &= 1\\
 这样咱们就把多项式方程作为一个指数族分布来写了出来。
 与 $i (for  : i = 1, ..., k)$对应的链接函数为：
 
-$ \eta_i =\log \frac {\phi_i}{\phi_k}$
+$ \eta_i =\log \frac  {\phi_i}{\phi_k}$
 
 为了方便起见，我们再定义 $\eta_k = \log (\phi_k/\phi_k) = 0$。对链接函数取反函数然后推导出响应函数，就得到了下面的等式：
 
 
 
 $$\begin{aligned}
-e^{\eta_i} &= \frac{\phi_i}{\phi_k}\\
+e^{\eta_i} &= \frac {\phi_i}{\phi_k}\\
 \phi_k e^{\eta_i} &= \phi_i \text{(7)}\\
 \phi_k  \sum^k_{i=1} e^{\eta_i}&= \sum^k_{i=1}\phi_i= 1\\
 \end{aligned}$$
 
 
-这就说明了$\phi_k = \frac 1 {\sum^k_{i=1} e^{\eta_i}}$，然后可以把这个关系代入回到等式(7)，这样就得到了响应函数：
+这就说明了$\phi_k = \frac  1 {\sum^k_{i=1} e^{\eta_i}}$，然后可以把这个关系代入回到等式(7)，这样就得到了响应函数：
 
-$ \phi_i = \frac { e^{\eta_i} }{ \sum^k_{j=1} e^{\eta_j}}$
+$ \phi_i = \frac  { e^{\eta_i} }{ \sum^k_{j=1} e^{\eta_j}}$
 
 
 上面这个函数从$\eta$ 映射到了$\phi$，称为 Softmax 函数。要完成我们的建模，还要用到前文提到的假设(3)，也就是 $\eta_i$ 是一个 $x$ 的线性函数。所以就有了 $\eta_= \theta_i^Tx (for:i = 1, ..., k − 1)$，其中的 $\theta_1, ..., \theta_{k−1} ∈ R^{n+1}$ 就是我们建模的参数。为了表述方便，我们这里还是定义$\theta_k = 0$，这样就有 $\eta_k = \theta_k^T x = 0$，跟前文提到的相符。因此，我们的模型假设了给定 $x$ 的 $y$ 的条件分布为：
@@ -757,8 +757,8 @@ $ \phi_i = \frac { e^{\eta_i} }{ \sum^k_{j=1} e^{\eta_j}}$
 
 $$\begin{aligned}
 p(y=i|x;\theta) &=  \phi_i \\
-&= \frac{e^{\eta_i}}{\sum^k_{j=1}e^{\eta_j}}\\
-&=\frac{e^{\theta_i^Tx}}{\sum^k_{j=1}e^{\theta_j^Tx}}\text{(8)}\\
+&= \frac {e^{\eta_i}}{\sum^k_{j=1}e^{\eta_j}}\\
+&=\frac {e^{\theta_i^Tx}}{\sum^k_{j=1}e^{\theta_j^Tx}}\text{(8)}\\
 \end{aligned}$$
 
 
@@ -787,10 +787,10 @@ h_\theta (x) &= E[T(y)|x;\theta]\\
 \right]\\
 &= E \left[
     \begin{array}{cc|c}
-      \frac{exp(\theta_1^Tx)}{\sum^k_{j=1}exp(\theta_j^Tx)} \\
-      \frac{exp(\theta_2^Tx)}{\sum^k_{j=1}exp(\theta_j^Tx)} \\
+      \frac {exp(\theta_1^Tx)}{\sum^k_{j=1}exp(\theta_j^Tx)} \\
+      \frac {exp(\theta_2^Tx)}{\sum^k_{j=1}exp(\theta_j^Tx)} \\
 	  \vdots \\
-	  \frac{exp(\theta_{k-1}^Tx)}{\sum^k_{j=1}exp(\theta_j^Tx)} \\
+	  \frac {exp(\theta_{k-1}^Tx)}{\sum^k_{j=1}exp(\theta_j^Tx)} \\
     \end{array}
 \right]\\
 \end{aligned}$$
@@ -802,7 +802,7 @@ h_\theta (x) &= E[T(y)|x;\theta]\\
 最后，咱们再来讲一下参数拟合。和我们之前对普通最小二乘线性回归和逻辑回归的原始推导类似，如果咱们有一个有 m 个训练样本的训练集 $\{(x^{(i)}, y^{(i)}); i = 1, ..., m\}$，然后要研究这个模型的参数 \thetai ，我们可以先写出其似然函数的对数：
 $$\begin{aligned}
 l(\theta)& =\sum^m_{i=1} \log p(y^{(i)}|x^{(i)};\theta)\\
-&= \sum^m_{i=1} \prod ^k_{l=1}(\frac{e^{\theta_l^Tx^{(i)}}}{\sum^k_{j=1} e^{\theta_j^T x^{(i)}}})^{1(y^{(i)}=l)}\\
+&= \sum^m_{i=1} \prod ^k_{l=1}(\frac {e^{\theta_l^Tx^{(i)}}}{\sum^k_{j=1} e^{\theta_j^T x^{(i)}}})^{1(y^{(i)}=l)}\\
 \end{aligned}$$
 
 
