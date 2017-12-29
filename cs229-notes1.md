@@ -397,7 +397,7 @@ $ \theta^T x =\theta_0 +\sum^n_{j=1}\theta_jx_j$
 
 $$
 \begin{aligned}
-g′(z) & = \frac d{dz} \frac1{1+e^{-z}}\\
+\dot{g}(z) & = \fracd{dz} \frac1{1+e^{-z}}\\
 & = \frac 1{(1+e^{-z})^2} \times (e^{-z}))\\
 & = \frac 1{(1+e^{-z})^2} \times (1- \frac1{(1+e^{-z})})\\
 & = g(z)(1-g(z))\\
