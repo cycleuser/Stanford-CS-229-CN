@@ -667,7 +667,6 @@ T(3)=\left[
 	  0\\
     \end{array}
 \right],
-\dots , 
 T(k-1)=\left[
     \begin{array}{cc|c}
       0\\
