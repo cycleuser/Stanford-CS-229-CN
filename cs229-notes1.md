@@ -696,23 +696,7 @@ $$
 
 
 
-$$\begin{aligned}
-p(y;\phi) &= \phi_1^{1\{y=1\}} \phi_2^{1\{y=2\}} \dots \phi_k^{1\{y=k\}}   \\
-&= \phi_1^{1\{y=1\}} \phi_2^{1\{y=2\}} \dots \phi_k^ {1-\sum^{k-1}_{i=1}{1\{y=i\}}}  \\
-
-&= \phi_1^{(T(y))_1} \phi_2^{(T(y))_2} \dots \phi_k^ {1-\sum^{k-1}_{i=1}{(T(y))_i}}  \\
-
-&= exp(
-(T(y))_1 \log(\phi_1)+(T(y))_2 \log(\phi_2)+\dots +(1-\sum^{k-1}_{i=1})(T(y))_i \log(\phi_k)
-)\\
-
-&= exp(
-(T(y))_1 \log(\phi_1)+(T(y))_2 \log(\phi_2)+\dots + (T(y))_{k-1} \log(\phi_{k-1}/\phi_k)
-+log(\phi_k)
-)\\
-
-&= b(y) exp(\eta^TT(y)-a(\eta))\\
-\end{aligned}$$
+![](![](https://raw.githubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note1f8.png))
 
 
 其中：
