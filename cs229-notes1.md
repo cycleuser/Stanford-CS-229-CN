@@ -85,6 +85,7 @@ $ J(\theta) = \frac12 \sum^m_{i=1}(H_\theta(x^{(i)})-y^{(i)})^2  $
 
 $ \theta_j := \theta_j - \alpha \frac\partial {\partial\theta_J}J(\theta)$
 
+
 > 注：本文中 $:= $ 表示的是计算机程序中的一种赋值操作，是把等号右边的计算结果赋值给左边的变量，$a := b$ 就表示用 $b$ 的值覆盖 $a$ 原有的 值。要注意区分，如果写的是 $a = b$ 则表示的是判断二者相等的关系。（译者注：在 Python 中，单个等号 $=$ 就是赋值，两个等号 $==$  表示相等关系的判断。
 
 （上面的这个更新要同时对应从 $0$ 到 $n$ 的所有j 值进行。）这里的 $\alpha$ 也称为学习速率。这个算法是很自然的，逐步重复朝向 $J$ 降低最快的方向移动。
@@ -177,7 +178,7 @@ $$
    \nabla_A tr AB & = B^T & \tag 1\\
    \nabla_{A^T} f(A) & = (\nabla_{A} f(A))^T\tag 2\\
    \nabla_A tr ABA^TC& = CAB+C^TAB^T &\tag 3\\
-   \nabla_A|A| & = |A|(A^{-1})^T &\tag 4
+   \nabla_A|A| & = |A|(A^{-1})^T &\tag 4\\
 \end{aligned}
 $$
 
@@ -240,7 +241,7 @@ $$
 
 $$
 \begin{aligned}
-\frac12(X\theta - \vec{y})^T (X\theta - \vec{y}) &=\frac12 \sum^m_{i=1}(h_\theta (x^{(i)})-y^{(i)})^2
+\frac12(X\theta - \vec{y})^T (X\theta - \vec{y}) &=\frac12 \sum^m_{i=1}(h_\theta (x^{(i)})-y^{(i)})^2\\
 \end{aligned}
 $$
 
@@ -315,7 +316,7 @@ $$
 l(\theta) &=\log L(\theta)\\
 &=\log \prod ^m _{i=1} \frac 1{\sqrt {2\pi \sigma }} exp(- \frac{(y^{(i)}-\theta^T x^{(i)})^2}{2\sigma^2})\\
 &= \sum ^m _{i=1} \frac 1{\sqrt {2\pi \sigma }} exp(- \frac{(y^{(i)}-\theta^T x^{(i)})^2}{2\sigma^2})\\
-&= m \times \log \frac 1{\sqrt {2\pi \sigma}}- \frac1{\sigma^2}\times \frac12 \sum^m_{i=1} (y^{(i)}-\theta^Tx^{(i)})^2
+&= m \times \log \frac 1{\sqrt {2\pi \sigma}}- \frac1{\sigma^2}\times \frac12 \sum^m_{i=1} (y^{(i)}-\theta^Tx^{(i)})^2\\
 
 \end{aligned}
 $$
@@ -401,7 +402,7 @@ $$
 g′(z) & = \frac d{dz} \frac1{1+e^{-z}}\\
 &= \frac 1{(1+e^{-z})^2} \times (e^{-z}))\\
 &= \frac 1{(1+e^{-z})^2} \times (1- \frac1{(1+e^{-z})})\\
-&= g(z)(1-g(z))
+&= g(z)(1-g(z))\\
 \end{aligned}
 $$
 
@@ -414,7 +415,7 @@ $$
 $$
 \begin{aligned}
 P(y=1|x;\theta)=h_{\theta}(x)\\
-P(y=0|x;\theta)=1- h_{\theta}(x)
+P(y=0|x;\theta)=1- h_{\theta}(x)\\
 \end{aligned}
 $$
 
