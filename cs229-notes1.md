@@ -649,7 +649,6 @@ T(1)=\left[
 	  0\\
     \end{array}
 \right],
-
 T(2)=\left[
     \begin{array}{cc|c}
       0\\
@@ -667,8 +666,9 @@ T(3)=\left[
 	  \vdots \\
 	  0\\
     \end{array}
-\right],\\
-\dots , T(k-1)=\left[
+\right],
+\dots , 
+T(k-1)=\left[
     \begin{array}{cc|c}
       0\\
       0\\
