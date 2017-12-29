@@ -472,7 +472,7 @@ $ \theta_j := \theta_j + \alpha (y^{(i)}-h_\theta (x^{(i)}))x_j^{(i)}$
 
 
 $$
-g(z)= \begin{cases} 1, & \text {if $z \geq 0$ } \\
+g(z)= \begin{cases} 1, & \text {if  z ≥ 0 } \\
 0, & \text{if $z < 0$} \end{cases}
 $$
 
