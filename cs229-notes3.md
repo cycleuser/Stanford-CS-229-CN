@@ -33,7 +33,7 @@ CS229 Lecture notes
 
 还有另外一种的直观表示，例如下面这个图当中，画叉的点表示的是正向训练样本，而小圆圈的点表示的是负向训练样本，图中还画出了**分类边界**(**decision boundary**)，这条线也就是通过等式 $\theta^T x = 0$ 来确定的，也叫做**分类超平面**(**separating hyperplane**)。图中还标出了三个点 A，B 和 C。
 
-![](https://raw.g_ithubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f1.png)
+![](https://raw.githubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f1.png)
 
 可以发现 A 点距离分界线很远。如果我们对 A 点的 y 值进行预测，估计我们会很有信心地认为在那个位置的 y = 1。与之相反的是 C，这个点距离边界线很近，而且虽然这个 C 点也在预测值 y = 1 的一侧，但看上去距离边界线的距离实在是很近的，所以也很可能会让我们对这个点的预测为 y = 0。因此，我们对 A 点的预测要比对 C 点的预测更有把握得多。B 点正好在上面两种极端情况之间，更广泛地说，如果一个点距离**分类超平面**(**separating hyperplane**)比较远，我们就可以对给出的预测很有信心。那么给定一个训练集，如果我们能够找到一个分类边界，利用这个边界我们可以对所有的训练样本给出正确并且有信心(也就是数据点距离分类边界要都很远)的预测，那这就是我们想要达到的状态了。当然上面这种说法还是很不正规，后面我们会使用**几何边界记号**(**notion of geometric marg_ins**)来更正规地来表达。
 
@@ -75,7 +75,7 @@ $$
 
 接下来，咱们要讲的是几何边界(geometric marg_ins)。例如下图所示：
 
-![](https://raw.g_ithubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f2.png)
+![](https://raw.githubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f2.png)
 
 图中给出了对应 (w, b) 的分类边界，其倾斜方向(即法线方向)为向量 w 的方向。这里的向量 w 是与**分类超平面**垂直的(orthogonal，即夹角为 90°)。(你需要说服自己现实情况一定是这样的。)假设有图中所示的一个点 A，此点表示的是针对某训练样本的输入特征为 $x^{(i)}$ ，对应的标签(label)为 $y^{(i)} = 1$。然后这个点到分类边界的距离 $\gamma^{(i)}$, 就通过 AB 之间的线段能够获得。
 
@@ -342,7 +342,7 @@ $$
 
 对于训练集中的每一个样本，都有这样的一个约束条件。要注意，通过 KKT 对偶互补条件可知，只有训练样本的函数边界确定为 1 的情况下，才有 $\alpha_i \geq  0$ (这些样本对应的约束条件关系都是等式关系，也就是对应的 $g_i(w) = 0$)。如下图所示，其中用实线所表示的就是最大间隔分界超平面(maximum marg_in separating hyperplane)。
 
-![](https://raw.g_ithubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f3.png)
+![](https://raw.githubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f3.png)
 
 具有最小边界的样本点(points with the smallest marg_ins)正好就是距离分类边界(decision boundary;)最近的那些点；图中所示，一共有三个这样的点，一个是空心圆的负值，两个是叉号的正值，他们所处的位置有虚线与分类边界线(即实线)相平行。因此，在这个优化问题中的最优解里面，只有这三个样本点所对应的 \alpha_i 是非零的。这种现象就是，支持向量的规模(number of support vectors)可以比整个训练集的规模(size of the tra_ining set)更小，这在稍后的内容中会用到。
 
@@ -584,9 +584,9 @@ $^5$很多教材对默瑟定理(Mercer’s theorem)的描述都要更加复杂�
 
 到目前为止，咱们对 SVM(支持向量机算法)进行的推导，都是基于一个假设，也就是所有的数据都是线性可分的。在通过特征映射 \phi 来将数据映射到高维度特征空间的过程，通常会增加数据可分割的概率，但我们还是不能保证数据一直可以区分。而且，在某些案例中，查找一个分类超平面还不一定是我们的目的所在，因为也可能很容易就出现异常值。例如，如下图所示的是一个最优边界分类器(optimal marg_in classifier)，如果有一个单独的异常值投到了右上方的区域(如右图所示)，这就会导致分界线出现显著的偏移，还会导致分类器的边界缩小了很多。
 
-![](https://raw.g_ithubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f4.png)
+![](https://raw.githubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f4.png)
 
-![](https://raw.g_ithubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f5.png)
+![](https://raw.githubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f5.png)
 
 要想让算法能够适用于非线性可分的数据集，并且使其对待异常值的敏感度降低一些，那就要把咱们的优化方法进行重构(reformulate)(使用 l1 正则化)，如下所示：
 
@@ -672,7 +672,7 @@ $$
 
 如果在函数 W 中，最内层循环中的 “$\arg \max$” 可以很有效地运行，那么坐标上升算法(coordinate ascent)就成了一个相当有效率的算法了。下面是一个坐标上升算法的示意图：
 
-![](https://raw.g_ithubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f6.png)
+![](https://raw.githubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f6.png)
 
 上图中的椭圆形就是我们要优化的二次函数的轮廓线。坐标上升算法的初始值设置为 (2, -2)，此外图中还标示了到全局最大值的路径。要注意，坐标上升法的每一步中，移动的方向都是平行于某个坐标轴的(parallel to one of the axes)，因为每次都只对一个变量进行了优化。
 
@@ -740,7 +740,7 @@ $$
 
 然后我们就可以用下面的图来表述对 $\alpha_1$ 和 $\alpha_2$ 的约束条件：
 
-![](https://raw.g_ithubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f7.png)
+![](https://raw.githubusercontent.com/Kivy-CN/Stanford-CS-229-CN/master/img/cs229note3f7.png)
 
 根据约束条件(18)，可知 必须在图中 $\alpha_1$和 $\alpha_2$ 必须在 $[0, C] \times  [0, C]$ 所构成的方框中。另外图中还有一条线 $\alpha1y^{(1)} +\alpha_2y^{(2)}  = \zeta$，而我们知道$\alpha_1$和 $\alpha_2$ 必须在这条线上。还需要注意的是，通过上面的约束条件，还能知道 $L \leq \alpha_2 \leq H$；否则 ($\alpha_1,\alpha_2$) 就不能同时满足在方框内并位于直线上这两个约束条件。在上面这个例子中，$L = 0$。但考虑到直线 $\alpha1y^{(1)} + \alpha_2y^{(2)}  = \zeta$ 的形状方向，这个 $L = 0$ 还未必就是最佳的；不过通常来讲，保证$\alpha_1, \alpha_2$ 位于 $[0, C] \times  [0, C]$ 方框内的 $\alpha_2$ 可能的值，都会有一个下界 L 和一个上界 H。
 
