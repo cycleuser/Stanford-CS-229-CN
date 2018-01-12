@@ -118,7 +118,7 @@ $$
 到目前为止，我们都是假定给定的训练集是线性可分(linearly separable)的；也就是说，能够在正向和负向的样本之间用某种分类超平面来进行划分。那要怎样找到能够得到最大几何边界的那一组呢？我们可以提出下面的这样一个优化问题(optimization problem)：
 
 $$
-\beg_in{aligned}
+\begin{aligned}
 max_(\gamma,w,b) & \gamma \\
 s.t.  y^{(i)}(w^Tx^{(i)}+b) &\geq \gamma,i=1,...,m\\
 ||w||&=1 \\
@@ -131,7 +131,7 @@ $$
 如果解出来上面的优化问题，那就全都搞定了。但 “$||w|| = 1$” 这个约束条件很讨厌，是非凸的(non-convex)，而且这个优化问题也明显不是那种我们随便扔给某些标准优化软件(standard optimization software)就能解决的。所以我们要把这个问题进行改善，让它更好解。例如：
 
 $$
-\beg_in{aligned}
+\begin{aligned}
 max_(\gamma,w,b) & \frac{\hat \gamma}{||w||} \\
 s.t.  y^{(i)}(w^Tx^{(i)}+b) &\geq \gamma,i=1,...,m\\
 \end{aligned}
@@ -150,7 +150,7 @@ $$
 
 
 $$
-\beg_in{aligned}
+\begin{aligned}
 max_(\gamma,w,b) & \frac{1}{2}||w||^2 \\
 s.t.  y^{(i)}(w^Tx^{(i)}+b) &\geq \gamma,i=1,...,m\\
 \end{aligned}
@@ -170,7 +170,7 @@ $$
 
 
 $$
-\beg_in{aligned}
+\begin{aligned}
 min_w & f(w)& \\
 s.t.  h_i(w)& =\gamma,i=1,...,l\\
 \end{aligned}
@@ -202,7 +202,7 @@ $$
 
 
 $$
-\beg_in{aligned}
+\begin{aligned}
 min_w & f(w)& \\
 s.t.  g_i(w)& =\gamma,i=1,...,k\\
 h_i(w)& =\gamma,i=1,...,l\\
@@ -233,7 +233,7 @@ $$
 
 
 $$
-\beg_in{aligned}
+\begin{aligned}
 \theta_P(w)&=\max_{\alpha,\beta:\alpha_i \geq 0} f(w)+\sum^k_{i=1}\alpha_ig_i(w)+\sum^l_{i=1}\beta_ih_i(w) &\text{(1)}\\
 &= \infty &\text{(2)}\\
 \end{aligned}
@@ -245,7 +245,7 @@ $$
 与之相反，如果 w 的某些特定值确实能满足约束条件，那么则有 $\theta_P(w) = f(w)$。因此总结一下就是：
 
 $$
-\theta_P(w)= \beg_in{cases} f(w) & \text {if w satisfies primal constra_ints} \\
+\theta_P(w)= \begin{cases} f(w) & \text {if w satisfies primal constra_ints} \\
 \infty & \text{otherwise} \end{cases}
 $$
 
