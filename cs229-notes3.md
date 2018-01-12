@@ -590,23 +590,55 @@ $^5$很多教材对默瑟定理(Mercer’s theorem)的描述都要更加复杂�
 
 要想让算法能够适用于非线性可分的数据集，并且使其对待异常值的敏感度降低一些，那就要把咱们的优化方法进行重构(reformulate)(使用 l1 正则化)，如下所示：
 
-![](cs229-notes3.fld/image052.png)
+$$
+\begin{aligned}
+min_{\gamma,w,b}& \frac 12 ||w||^2+C\sum^m_{}\xi_i \\
+s.t.& y^{(i)}(w^Tx^{(i)}+b) \geq1-\xi_i,i=1,...,m\\
+& \xi_i \geq 0 ,i=1,...,m
+\end{aligned}
+$$
 
-这样就允许数据集里面有(函数)边界小于1 的情况了，然后如果一个样本的函数边界为 1 - ξi (其中 ξ \geq  0)，这就需要我们给出 Cξi 作为**目标函数降低的成本**(cost of the objective function being increased)。C 是一个参数，用于控制相对权重，具体的控制需要在一对目标之间进行考量，一个是使得 ||w||2 取最小值(前面章节中的案例可以看到这样能够让边界最大化)，另一个是确保绝大部分的样本都有至少为 1 的函数边界。
+
+
+
+
+
+这样就允许数据集里面有(函数)边界小于1 的情况了，然后如果一个样本的函数边界为 $1 - \xi_i$ (其中 $\xi \geq  0$)，这就需要我们给出 $C\xi_i$ 作为**目标函数成本函数的降低值**(cost of the objective function being increased)。C 是一个参数，用于控制相对权重，具体的控制需要在一对目标之间进行考量，一个是使得 $||w||^2$ 取最小值(前面章节中的案例可以看到这样能够让边界最大化)，另一个是确保绝大部分的样本都有至少为 1 的函数边界。
 
 然后按照惯例，给出拉格朗日函数(Lagrang_ian)：
 
-![](cs229-notes3.fld/image053.png)
+$$
+L(w,b,\xi,\alpha,r)=\frac12w^Tw+C\sum^m_{i=1}\xi_i-\sum^m_{i=1}\alpha_i[y^{(i)}(x^Tw+b)-1+\xi_i]-\sum^m_{i=1}r_i\xi_i
+$$
+
+
 
 上面的式子中的 \alpha_i 和 ri 都是拉格朗日乘数(Lagrange multipliers 被限制为非负数，\geq 0)。这次我们就不再对对偶形式进行详细推导了，不过如往常一样设 关于 w 和 b 的导数为零，然后再代回去进行简化，这样就能够得到下面的该问题的对偶形式：
 
-![](cs229-notes3.fld/image054.png)
+$$
+\begin{aligned}
+\max_\alpha & W(\alpha) =\sum^m_{i=1}\alpha_i y^{(i)}y^{(j)}\alpha_i\alpha_j \langle  x^{(i)},x^{(j)} \rangle \\
+ s.t. & 0\leq \alpha_i \leq C,i=1,...,m\\
+ & \sum^m_{i=1}\alpha_iy^{(i)}=0  \\
+\end{aligned}
+$$
+
+
+
 
 跟以前一样，我们还是可以把 w 用 \alpha_i 来进行表述，如同等式 (9) 所示，所以解完了对偶问题之后，我们就可以接下来使用等式 (13) 来给出我们的预测。这里要注意，有一点很神奇，就是在加入了 l1 正则化之后，对对偶问题的唯一改变只是约束从原来的 0 ≤ \alpha_i 现在变成了 0 ≤ \alpha_i ≤ C。这里对 b\ast 的计算也受到了影响而有所变动(等式 11 不再成立了(no longer valid))；具体内容参考下一节，或者阅读 Platt 的可以不问，
 
 另外，KKT 对偶互补条件(dual complementarity condition，这个在下一节要用来测试 SMO 算法的收敛性)为：
 
-![](cs229-notes3.fld/image055.png)
+$$
+\begin{aligned}
+\alpha_i&= 0 &\implies y^{(i)}(w^Tx^{(i)}+b)\ge 1 &\text{(14)}\\
+\alpha_i&= C &\implies y^{(i)}(w^Tx^{(i)}+b)\le 1 &\text{(15)}\\
+0\leq \alpha_i& \leq C &\implies y^{(i)}(w^Tx^{(i)}+b) = 1 &\text{(16)}\\
+\end{aligned}
+$$
+
+
 
 现在，剩下的问题就只是给出一个算法来具体地解这个对偶问题了，我们下一节就来讲这个问题。
 
