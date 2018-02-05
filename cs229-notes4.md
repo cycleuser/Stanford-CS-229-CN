@@ -78,7 +78,7 @@ $epsilon(h) =P_{x,y}\sim D\{h(x)\neq y\}$
 
 >2 PAC 是一个缩写，原型为“probably approximately correct”，这是一个框架和一系列假设的集合，在机器学习理论中的很多结构都是基于这些假设而证明得到的。这个系列假设中最重要的两个，就是训练集与测试集服从同一分布，以及训练样本的独立性。
 
-考虑线性分类的情况，假设 $h\theta (x) = 1\{\theta^T x \geq 0\}$。拟合参数 \theta 的合理方法是什么呢？一个思路就是可以使训练误差（training error）最小化，然后选择取最小值的时候的 \theta：
+考虑线性分类的情况，假设 $h\theta (x) = 1\{\theta^T x \geq 0\}$。拟合参数 \theta 的合理方法是什么呢？一个思路就是可以使训练误差（training error）最小化，然后选择取最小值的时候的 $\theta$ ：
 
 ![](cs229-notes4.fld/image007.png)
 
